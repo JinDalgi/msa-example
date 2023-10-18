@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### profile file
+application-db.yml
