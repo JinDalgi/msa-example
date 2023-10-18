@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -24,5 +26,5 @@ public class Item {
 
     private Long pricePerItem;
 
-
+    private LocalDateTime createdAt;
 }

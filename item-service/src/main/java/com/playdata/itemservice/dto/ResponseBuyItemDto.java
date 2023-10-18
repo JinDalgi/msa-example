@@ -1,5 +1,6 @@
 package com.playdata.itemservice.dto;
 
+import com.playdata.itemservice.domain.Item;
 import lombok.*;
 
 @Getter @Setter
