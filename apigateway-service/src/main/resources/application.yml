@@ -1,0 +1,53 @@
+server:
+  port: 8000
+
+# GateWay Setting
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalCustomFilter
+          args:
+            msg: Global Filter Default Message Test
+            pre: true
+            post: true
+
+      routes:     # MicroService Info
+        - id: first-service
+          uri: lb://FIRST-SERVICE
+          predicates:
+            - Path=/first-service/**
+          filters:
+#            - AddRequestHeader=fsreqhyml,fsreqhvyml
+#            - AddResponseHeader=fsreshyml,fsreshvtyml
+            - name: CustomFilter
+            - name: LogFilter
+              args:
+                message: Log Filter!!!
+                pre: true
+                post: true
+
+        - id: second-service
+          uri: lb://SECOND-SERVICE
+          predicates:
+            - Path=/second-service/**
+          filters:
+#            - AddRequestHeader=sshyml,sshvyml
+#            - AddResponseHeader=ssreshyml,ssreshvyml
+            - CustomFilter2
+            - LogFilter
+
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defalut-Zone: http://127.0.0.1:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
