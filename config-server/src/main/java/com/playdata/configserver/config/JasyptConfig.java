@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JasyptConfig {
 
-    @Value("${jasypt.encryptor.password}")
+    @Value("${jasypt.encryptor.key}")
     private String password; // 암호화 시 사용될 키 값
 
     @Bean("jasyptStringEncryptor")
