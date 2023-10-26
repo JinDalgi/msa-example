@@ -1,16 +1,17 @@
-package com.example.msajoinexample.entity;
+package com.example.msajoinexample.dto;
 
-public class User {
+import com.example.msajoinexample.entity.Order;
+
+import java.util.List;
+
+public class UserOrderDto {
 
     private int userId;
     private String name;
     private int age;
 
-    public User(int userId, String name, int age) {
-        this.userId = userId;
-        this.name = name;
-        this.age = age;
-    }
+    // 연관관계를 가져갈 수 있는 Order 목록
+    private List<Order> orderList;
 
     public int getUserId() {
         return userId;
@@ -36,12 +37,21 @@ public class User {
         this.age = age;
     }
 
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
+        return "UserOrderDto{" +
                 "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", orderList=" + orderList +
                 '}';
     }
 }
