@@ -29,7 +29,7 @@ public class UserMapRepository implements UserReporitory {
     @Override
     public User getUserByUserId(int userId) {
 
-        for (int i=0; i<userMap.size(); i++) {
+        for (int i=1; i<userMap.size()+1; i++) {
             if(userMap.get(i).getUserId() == userId) {
                 return userMap.get(i);
             }

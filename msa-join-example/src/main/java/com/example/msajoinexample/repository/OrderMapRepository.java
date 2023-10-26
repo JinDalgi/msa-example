@@ -16,7 +16,7 @@ public class OrderMapRepository implements OrderRepository {
         this.orderList = new HashMap<Integer, Order>();
         Order order1 = new Order(1, "감자", 3);
         Order order2 = new Order(2, "고구마", 2);
-
+        Order order3 = new Order(3, "감자튀김", 5);
         Order order4 = new Order(4, "그램", 6);
         Order order5 = new Order(5, "오렌지", 7);
         Order order6 = new Order(6, "감자", 3);
@@ -28,6 +28,7 @@ public class OrderMapRepository implements OrderRepository {
 
         orderList.put(1, order1);
         orderList.put(2, order2);
+        orderList.put(3, order3);
         orderList.put(4, order4);
         orderList.put(5, order5);
         orderList.put(6, order6);
@@ -42,7 +43,7 @@ public class OrderMapRepository implements OrderRepository {
     public List<Order> getOrderByUserId(int userId) {
         List<Order> userOrderList = new ArrayList<>();
 
-        for (int i=0; i<orderList.size(); i++) {
+        for (int i=1; i<orderList.size()+1; i++) {
             if(orderList.get(i).getUserId() == userId) {
                 userOrderList.add(orderList.get(i));
             }
