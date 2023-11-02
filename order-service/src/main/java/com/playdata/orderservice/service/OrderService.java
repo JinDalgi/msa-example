@@ -7,6 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -19,9 +24,7 @@ public class OrderService {
     }
 
     // userId를 입력하면 Order 리스트를 넘겨주는 메서드
-    public ResponseEntity<?> findOrderByUserId(String userId) {
-
-
-        return null;
+    public Optional<List<Order>> findOrderByUserId(String userId) {
+        return orderRepository.findOrderByUserId(userId);
     }
 }
