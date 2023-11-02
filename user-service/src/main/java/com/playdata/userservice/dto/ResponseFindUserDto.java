@@ -1,5 +1,6 @@
 package com.playdata.userservice.dto;
 
+import com.playdata.userservice.domain.Order;
 import com.playdata.userservice.domain.User;
 import lombok.*;
 
@@ -28,6 +29,6 @@ public class ResponseFindUserDto {
         this.userId = user.getUserId();
     }
 
-    public void setOrderList(List<Object> of) {
-    }
+    // 필요하다면 구매내역을 같이 가져올 수 있도록 처리합니다.
+    private List<Order> orderList;
 }

@@ -40,4 +40,9 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllUser());
     }
 
+    @GetMapping("/users/{userId}/orders")
+    public ResponseEntity<?> findOrdersByUserId(@PathVariable String userId) {
+        ResponseFindUserDto dto = userService.findUserOrderList(userId);
+        return ResponseEntity.ok(dto);
+    }
 }
