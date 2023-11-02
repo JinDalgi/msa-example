@@ -2,6 +2,7 @@ package com.playdata.orderservice.controller;
 
 import com.playdata.orderservice.dto.RequestCreateOrderDto;
 import com.playdata.orderservice.service.OrderService;
+import feign.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,4 +25,6 @@ public class OrderController {
         orderService.createOrder(requestCreateOrderDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    public ResponseEntity<?> findOrderByUserId(@RequestBody)
 }
