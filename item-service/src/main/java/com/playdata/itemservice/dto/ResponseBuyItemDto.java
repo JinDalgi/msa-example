@@ -15,7 +15,7 @@ public class ResponseBuyItemDto {
 
     Long pricePerItem;
 
-    String userId;
+    private String userId;
 
-    String orderId;
+    private String orderId;
 }

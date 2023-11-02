@@ -2,7 +2,9 @@ package com.playdata.itemservice.controller;
 
 import com.playdata.itemservice.dto.RequestCreateItemDto;
 import com.playdata.itemservice.dto.ResponseBuyItemDto;
+import com.playdata.itemservice.dto.ResponseOrderByItemDto;
 import com.playdata.itemservice.service.ItemService;
+import feign.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,5 +40,11 @@ public class ItemController {
     @GetMapping("/items/all")
     public ResponseEntity<?> findAllItem() {
         return ResponseEntity.ok(itemService.findAllItem());
+    }
+
+    @GetMapping("/items/{productId}/orders")
+    public ResponseEntity<?> findOrdersByProductId(@PathVariable String productId) {
+        ResponseOrderByItemDto dto = itemService.findOrderByItem(productId);
+        return ResponseEntity.ok(dto);
     }
 }

@@ -1,19 +1,23 @@
 package com.playdata.itemservice.service;
 
 import com.playdata.itemservice.domain.Item;
+import com.playdata.itemservice.domain.Order;
 import com.playdata.itemservice.dto.RequestCreateItemDto;
-import com.playdata.itemservice.dto.ResponseBuyItemDto;
+import com.playdata.itemservice.dto.ResponseOrderByItemDto;
+import com.playdata.itemservice.feignclient.OrderFeignClient;
 import com.playdata.itemservice.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private final OrderFeignClient orderFeignClient;
 
     public void craeteItem(RequestCreateItemDto itemDto) {
         itemRepository.save(itemDto.toEntity());
@@ -31,4 +35,18 @@ public class ItemService {
     public List<Item> findAllItem() {
         return itemRepository.findAll();
     }
+
+    public ResponseOrderByItemDto findOrderByItem(String productId) {
+        Item item = itemRepository.findItemByProductId(productId).orElseThrow(
+                () -> new RuntimeException(""));
+
+        ResponseOrderByItemDto itemDto = new ResponseOrderByItemDto(item);
+
+        List<Order> orderList = orderFeignClient.getOrderListByProductId(productId);
+
+        itemDto.setOrderList(orderList);
+
+        return itemDto;
+    }
+
 }

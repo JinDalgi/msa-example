@@ -35,4 +35,11 @@ public class OrderController {
                 () -> new RuntimeException("없는 유저 아이디로 조회하셨습니다.")).stream().toList();
         return ResponseEntity.ok(orderList);
     }
+
+    @GetMapping("/orders/{productId}/products")
+    public ResponseEntity<?> getOrderListByProductId(@PathVariable String productId) {
+        List<Order> orderList = orderService.getOrderByProductId(productId).orElseThrow(() ->
+                new RuntimeException("없는 아이템 입니다."));
+        return ResponseEntity.ok(orderList);
+    }
 }
