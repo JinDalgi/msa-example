@@ -24,7 +24,7 @@ public class ItemService {
     private final Producer producer;
     private final ObjectMapper objectMapper;
 
-    public void craeteItem(RequestCreateItemDto itemDto) {
+    public void createItem(RequestCreateItemDto itemDto) {
         itemRepository.save(itemDto.toEntity());
     }
 
