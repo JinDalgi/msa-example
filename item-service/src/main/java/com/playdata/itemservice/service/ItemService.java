@@ -1,5 +1,7 @@
 package com.playdata.itemservice.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playdata.itemservice.domain.Item;
 import com.playdata.itemservice.domain.Order;
 import com.playdata.itemservice.dto.RequestCreateItemDto;
@@ -20,6 +22,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final OrderFeignClient orderFeignClient;
     private final Producer producer;
+    private final ObjectMapper objectMapper;
 
     public void craeteItem(RequestCreateItemDto itemDto) {
         itemRepository.save(itemDto.toEntity());
@@ -53,6 +56,12 @@ public class ItemService {
 
     public void publishTestMessage(String message) {
         producer.sendTestMessage(message);
+    }
+
+    public void publishCreateItemMessage(RequestCreateItemDto requestCreateItemDto) throws JsonProcessingException {
+        // DTO를 json(String)으로 직렬화
+        String message = objectMapper.writeValueAsString(requestCreateItemDto);
+        producer.sendCreateItemMessage(message);
     }
 
 }

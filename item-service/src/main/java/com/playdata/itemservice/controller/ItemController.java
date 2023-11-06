@@ -1,9 +1,12 @@
 package com.playdata.itemservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.playdata.itemservice.dto.RequestCreateItemDto;
 import com.playdata.itemservice.dto.ResponseBuyItemDto;
 import com.playdata.itemservice.dto.ResponseOrderByItemDto;
 import com.playdata.itemservice.service.ItemService;
+import com.rabbitmq.client.impl.Environment;
 import feign.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,15 +22,19 @@ public class ItemController {
 
     private final ItemService itemService;
 
+    // 직렬화, 역직렬화 담당 라이브러리.
+    private final ObjectMapper objectMapper;
+
     @GetMapping("/health-check")
     public String healthCheck() {
         return "server is available!";
     }
 
     @PostMapping("/items")
-    public ResponseEntity<?> createItem(@Valid @RequestBody RequestCreateItemDto itemDto) {
-        itemService.craeteItem(itemDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> createItem(@Valid @RequestBody RequestCreateItemDto itemDto) throws JsonProcessingException {
+//        itemService.craeteItem(itemDto);
+        itemService.publishCreateItemMessage(itemDto);
+        return ResponseEntity.ok("메시지큐에 생성 요청 적재 완료!");
     }
 
 //    @GetMapping("/items/{productId}")
