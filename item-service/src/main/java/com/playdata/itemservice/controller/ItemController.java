@@ -47,4 +47,10 @@ public class ItemController {
         ResponseOrderByItemDto dto = itemService.findOrderByItem(productId);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/items/{message}/message")
+    public ResponseEntity<?> publishTestMessage(@PathVariable String message) {
+        itemService.publishTestMessage(message);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

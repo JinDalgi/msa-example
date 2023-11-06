@@ -6,6 +6,7 @@ import com.playdata.itemservice.dto.RequestCreateItemDto;
 import com.playdata.itemservice.dto.ResponseOrderByItemDto;
 import com.playdata.itemservice.feignclient.OrderFeignClient;
 import com.playdata.itemservice.repository.ItemRepository;
+import com.playdata.itemservice.util.Producer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
     private final OrderFeignClient orderFeignClient;
+    private final Producer producer;
 
     public void craeteItem(RequestCreateItemDto itemDto) {
         itemRepository.save(itemDto.toEntity());
@@ -47,6 +49,10 @@ public class ItemService {
         itemDto.setOrderList(orderList);
 
         return itemDto;
+    }
+
+    public void publishTestMessage(String message) {
+        producer.sendTestMessage(message);
     }
 
 }
